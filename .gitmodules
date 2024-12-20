@@ -1,0 +1,3 @@
+[submodule "sliceit-game"]
+	path = sliceit-game
+	url = ./sliceit-game/
