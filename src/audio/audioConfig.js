@@ -1,0 +1,26 @@
+// Placeholder audio using Data URIs for testing
+// These are minimal audio files to prevent loading errors
+const AUDIO_DATA = {
+    MUSIC: {
+        MENU: 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A',
+        GAME: 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A',
+        BOSS: 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A'
+    },
+    SOUNDS: {
+        SLICE: 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A',
+        POWERUP: 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A',
+        LEVEL_UP: 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A',
+        GAME_OVER: 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A',
+        ACHIEVEMENT_UNLOCKED: 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A'
+    }
+};
+
+// Update CONFIG audio paths with data URIs
+CONFIG.AUDIO = {
+    MUSIC: AUDIO_DATA.MUSIC,
+    SOUNDS: AUDIO_DATA.SOUNDS,
+    DEFAULT_VOLUME: {
+        MUSIC: 0.5,
+        SOUND: 0.75
+    }
+};
