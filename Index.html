@@ -4,79 +4,271 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SliceIT - The Ultimate Slicing Game</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Add FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
-    
-    <!-- Game HUD -->
-    <div id="score">Score: 0</div>
-    <div id="combo">Combo: x1</div>
-    <div id="lives">Lives: 3</div>
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <canvas id="backgroundCanvas"></canvas>
 
-    <!-- Game Over Screen -->
-    <div id="gameOver" class="menu-screen" style="display: none;">
-        <h1 class="menu-title">Game Over!</h1>
-        <div class="final-score">Your Score: <span id="finalScore">0</span></div>
-        <div class="name-input">
-            <label for="playerName">Enter Your Name:</label>
-            <input type="text" id="playerName" maxlength="15" placeholder="Your Name">
+        <!-- Game HUD -->
+        <div id="hud">
+            <div id="score"><i class="fas fa-star"></i> <span>0</span></div>
+            <div id="combo"><i class="fas fa-bolt"></i> <span>x1</span></div>
+            <div id="lives">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+            <div id="powerups">
+                <!-- Power-up indicators will be added dynamically -->
+            </div>
         </div>
-        <button onclick="saveScore()">Save Score</button>
-        <button onclick="restartGame()">Try Again</button>
-        <button onclick="showMainMenu()">Main Menu</button>
-        <button onclick="showLeaderboard()">Leaderboard</button>
-    </div>
 
-    <!-- Start Screen -->
-    <div id="startScreen" class="menu-screen">
-        <h1 class="menu-title">SliceIT</h1>
-        <button onclick="startGameMode('classic')">Classic Mode</button>
-        <button onclick="startGameMode('endless')">Endless Mode</button>
-        <button onclick="startGameMode('boss')">Boss Mode</button>
-    </div>
-
-    <!-- Leaderboard Screen -->
-    <div id="leaderboardScreen" class="menu-screen" style="display: none;">
-        <h1 class="menu-title">Leaderboard</h1>
-        <div class="leaderboard-container">
-            <table id="leaderboardTable">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Name</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody id="leaderboardList">
-                </tbody>
-            </table>
+        <!-- Game Over Screen -->
+        <div id="gameOver" class="menu-screen">
+            <div class="menu-content">
+                <h1 class="menu-title">Game Over!</h1>
+                <div class="stats-container">
+                    <div class="final-score">Score: <span id="finalScore">0</span></div>
+                    <div class="stats-item">Objects Sliced: <span id="objectsSliced">0</span></div>
+                    <div class="stats-item">Max Combo: <span id="maxCombo">0</span></div>
+                    <div class="stats-item">Time Survived: <span id="timeSurvived">0</span></div>
+                </div>
+                <div class="name-input">
+                    <label for="playerName">Enter Your Name:</label>
+                    <input type="text" id="playerName" maxlength="15" placeholder="Your Name">
+                </div>
+                <div class="button-container">
+                    <button class="game-button" onclick="saveScore()">Save Score</button>
+                    <button class="game-button" onclick="restartGame()">Try Again</button>
+                    <button class="game-button" onclick="showMainMenu()">Main Menu</button>
+                </div>
+            </div>
         </div>
-        <button onclick="showMainMenu()">Back to Menu</button>
+
+        <!-- Start Screen -->
+        <div id="startScreen" class="menu-screen">
+            <div class="menu-content">
+                <h1 class="menu-title">SliceIT</h1>
+                <div class="tagline">The Ultimate Slicing Experience</div>
+                
+                <div class="button-container">
+                    <button class="game-button" onclick="showGameModes()">Play</button>
+                    <button class="game-button" onclick="showLeaderboard()">Leaderboard</button>
+                    <button class="game-button" onclick="showAchievements()">Achievements</button>
+                    <button class="game-button" onclick="showSettings()">Settings</button>
+                    <button class="game-button" onclick="showCredits()">Credits</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Modes Screen -->
+        <div id="gameModeScreen" class="menu-screen">
+            <div class="menu-content">
+                <h1 class="menu-title">Game Modes</h1>
+                
+                <div class="game-modes">
+                    <div class="game-mode-card" onclick="startGameMode('classic')">
+                        <i class="fas fa-clock"></i>
+                        <h2>Classic</h2>
+                        <p>Slice objects and avoid bombs. 3 lives.</p>
+                    </div>
+                    
+                    <div class="game-mode-card" onclick="startGameMode('zen')">
+                        <i class="fas fa-peace"></i>
+                        <h2>Zen Mode</h2>
+                        <p>Relaxed gameplay. No lives or bombs. Just slice!</p>
+                    </div>
+                    
+                    <div class="game-mode-card" onclick="startGameMode('arcade')">
+                        <i class="fas fa-bolt"></i>
+                        <h2>Arcade</h2>
+                        <p>Time challenge with power-ups. 60 seconds.</p>
+                    </div>
+                    
+                    <div class="game-mode-card" onclick="startGameMode('boss')">
+                        <i class="fas fa-skull"></i>
+                        <h2>Boss Battle</h2>
+                        <p>Defeat powerful bosses with strategic slicing.</p>
+                    </div>
+                </div>
+                
+                <button class="game-button back-button" onclick="showMainMenu()">Back</button>
+            </div>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div id="leaderboardScreen" class="menu-screen">
+            <div class="menu-content">
+                <h1 class="menu-title">Leaderboard</h1>
+                
+                <div class="leaderboard-tabs">
+                    <button class="tab-button active" data-mode="classic">Classic</button>
+                    <button class="tab-button" data-mode="zen">Zen</button>
+                    <button class="tab-button" data-mode="arcade">Arcade</button>
+                    <button class="tab-button" data-mode="boss">Boss</button>
+                </div>
+                
+                <div class="leaderboard-container">
+                    <table id="leaderboardTable">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Score</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardList">
+                            <!-- Leaderboard entries will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <button class="game-button back-button" onclick="showMainMenu()">Back</button>
+            </div>
+        </div>
+
+        <!-- Achievements Screen -->
+        <div id="achievementsScreen" class="menu-screen">
+            <div class="menu-content">
+                <h1 class="menu-title">Achievements</h1>
+                
+                <div class="achievements-container" id="achievementsList">
+                    <!-- Achievements will be added dynamically -->
+                </div>
+                
+                <button class="game-button back-button" onclick="showMainMenu()">Back</button>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settingsScreen" class="menu-screen">
+            <div class="menu-content">
+                <h1 class="menu-title">Settings</h1>
+                
+                <div class="settings-container">
+                    <div class="setting-item">
+                        <label for="musicVolume">Music Volume</label>
+                        <input type="range" id="musicVolume" min="0" max="100" value="70">
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label for="sfxVolume">SFX Volume</label>
+                        <input type="range" id="sfxVolume" min="0" max="100" value="80">
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label for="particleEffects">Particle Effects</label>
+                        <select id="particleEffects">
+                            <option value="high">High</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label for="trailEffect">Slice Trail Effect</label>
+                        <select id="trailEffect">
+                            <option value="rainbow">Rainbow</option>
+                            <option value="fire">Fire</option>
+                            <option value="electric" selected>Electric</option>
+                            <option value="none">None</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="game-button" onclick="saveSettings()">Save Settings</button>
+                <button class="game-button back-button" onclick="showMainMenu()">Back</button>
+            </div>
+        </div>
+
+        <!-- Credits Screen -->
+        <div id="creditsScreen" class="menu-screen">
+            <div class="menu-content">
+                <h1 class="menu-title">Credits</h1>
+                
+                <div class="credits-container">
+                    <p>Created with ❤️ by You</p>
+                    <p>Improved by AI Assistant</p>
+                    <p>Background Music: Various Artists</p>
+                    <p>Sound Effects: Various Sources</p>
+                    <p>Special Thanks to All Players!</p>
+                </div>
+                
+                <button class="game-button back-button" onclick="showMainMenu()">Back</button>
+            </div>
+        </div>
+
+        <!-- Pause Menu -->
+        <div id="pauseMenu" class="menu-screen">
+            <div class="menu-content">
+                <h1 class="menu-title">Paused</h1>
+                
+                <div class="button-container">
+                    <button class="game-button" onclick="resumeGame()">Resume</button>
+                    <button class="game-button" onclick="restartGame()">Restart</button>
+                    <button class="game-button" onclick="showMainMenu()">Main Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tutorial Screen -->
+        <div id="tutorialScreen" class="menu-screen">
+            <div class="menu-content">
+                <h1 class="menu-title">How to Play</h1>
+                
+                <div class="tutorial-container">
+                    <div class="tutorial-step">
+                        <i class="fas fa-hand-pointer"></i>
+                        <p>Swipe through objects to slice them</p>
+                    </div>
+                    
+                    <div class="tutorial-step">
+                        <i class="fas fa-bomb"></i>
+                        <p>Avoid bombs or use shield power-ups</p>
+                    </div>
+                    
+                    <div class="tutorial-step">
+                        <i class="fas fa-bolt"></i>
+                        <p>Chain slices to build combos</p>
+                    </div>
+                    
+                    <div class="tutorial-step">
+                        <i class="fas fa-magic"></i>
+                        <p>Collect power-ups for special abilities</p>
+                    </div>
+                </div>
+                
+                <button class="game-button" onclick="startGameMode('classic')">Start Game</button>
+                <button class="game-button back-button" onclick="showMainMenu()">Back</button>
+            </div>
+        </div>
     </div>
 
     <!-- Achievement Popup -->
     <div class="achievement-popup" id="achievementPopup">
-        <span id="achievementText"></span>
+        <i class="fas fa-trophy"></i>
+        <div>
+            <h3>Achievement Unlocked!</h3>
+            <span id="achievementText"></span>
+        </div>
     </div>
 
-    <!-- Load Assets -->
-    <script src="assets/svg/sprites.js"></script>
+    <!-- Power-up Popup -->
+    <div class="powerup-popup" id="powerupPopup">
+        <i class="fas fa-bolt"></i>
+        <div>
+            <h3>Power-up Activated!</h3>
+            <span id="powerupText"></span>
+        </div>
+    </div>
 
     <!-- Load Game Scripts -->
-    <script src="src/config/settings.js"></script>
-    <script src="src/audio/audioConfig.js"></script>
-    <script src="src/utils/helpers.js"></script>
-    <script src="src/audio/soundManager.js"></script>
-    <script src="src/engine/physics.js"></script>
-    <script src="src/engine/renderer.js"></script>
-    <script src="src/entities/gameObject.js"></script>
-    <script src="src/entities/particles.js"></script>
-    <script src="src/data/achievements.js"></script>
-    <script src="src/data/levels.js"></script>
-    <script src="src/ui/menu.js"></script>
-    <script src="src/engine/game.js"></script>
-    <script src="src/main.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
